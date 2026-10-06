@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Tournament — Desi Arena E-Sportz</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="mc">
+
+<div class="particles" id="particles"></div>
+
+<header class="site">
+  <nav class="site">
+    <div class="logo">DESI ARENA <span>E-SPORTZ</span></div>
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="freefire.html">Free Fire</a>
+      <a href="minecraft.html">Minecraft</a>
+    </div>
+  </nav>
+</header>
+
+<section class="game-hero">
+  <div class="wrap reveal">
+    <img class="hero-logo" src="images/minecraft-logo.png" alt="Minecraft logo">
+    <h1 class="display">BED WARS OPEN</h1>
+    <p>Solo or duo, single elimination bracket. Casual and competitive players both welcome — beginners get a practice round.</p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#register">Register to play</a>
+      <a class="btn ghost" href="#rules">View rules</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div id="countdown" class="countdown reveal" data-target="2026-11-22T17:00:00">
+      <div class="unit"><b data-d>00</b><span>Days</span></div>
+      <div class="unit"><b data-h>00</b><span>Hours</span></div>
+      <div class="unit"><b data-m>00</b><span>Mins</span></div>
+      <div class="unit"><b data-s>00</b><span>Secs</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow-free reveal">TOURNAMENT INFO</p>
+    <h2 class="section-title reveal">The numbers.</h2>
+    <div class="stats reveal">
+      <div class="stat-card"><b>32</b><span>player slots</span></div>
+      <div class="stat-card"><b>1v1 / 2v2</b><span>solo or duo entry</span></div>
+      <div class="stat-card"><b>Free</b><span>to enter</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <p class="eyebrow-free reveal">BRACKET FORMAT</p>
+    <h2 class="section-title reveal">Rules &amp; format.</h2>
+    <p class="section-sub reveal">Single elimination — lose a match and you're out, so every bed matters.</p>
+    <div class="info-grid reveal">
+      <div class="info-card">
+        <div class="num">01</div>
+        <h4>Entry type</h4>
+        <p>Register solo or as a duo. Solo and duo brackets run separately.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">02</div>
+        <h4>Match format</h4>
+        <p>Best of 1 until the semifinals, best of 3 for semis and final.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">03</div>
+        <h4>New players</h4>
+        <p>First-timers get a short practice round before the bracket starts — no shame in asking.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">04</div>
+        <h4>Disputes</h4>
+        <p>Report issues in the match-day Discord within 10 minutes of a match ending.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="register">
+  <div class="wrap">
+    <div class="register-panel reveal">
+      <h2 class="display">Ready to break some beds?</h2>
+      <p>Registration takes under 2 minutes. You'll get a confirmation email with your bracket slot.</p>
+      <!-- Replace the href below with your Google Form link -->
+      <a class="btn primary" href="#" id="mc-register-link">Register to play</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <span>Desi Arena E-Sportz — organized by players, for players.</span>
+    <span>Minecraft © Mojang. Not affiliated.</span>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+<script>
+  spawnParticles(document.getElementById('particles'), 28, ['#6FD13C', '#3C9CD1']);
+</script>
+</body>
+</html>
