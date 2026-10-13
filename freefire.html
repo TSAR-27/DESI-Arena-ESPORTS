@@ -4,7 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Fire Tournament — Desi Arena E-Sportz</title>
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  .points-table { width:100%; border-collapse:collapse; background:var(--bg-raised); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .points-table th, .points-table td { padding:12px 16px; text-align:left; font-size:14px; border-bottom:1px solid var(--line); }
+  .points-table th { color:var(--ink-dim); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; }
+  .points-table td:last-child { font-family:'Archivo Black',sans-serif; color:var(--ff-b); text-align:right; }
+  .points-table th:last-child { text-align:right; }
+  .points-table tr:last-child td { border-bottom:none; }
+  .points-wrap { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+  @media (max-width:640px){ .points-wrap{ grid-template-columns:1fr; } }
+  .rules-block { margin-bottom:48px; }
+  .rules-block h3 { font-family:'Archivo Black',sans-serif; font-size:20px; margin:0 0 18px; }
+</style>
 </head>
 <body class="ff">
 
@@ -23,9 +35,9 @@
 
 <section class="game-hero">
   <div class="wrap reveal">
-    <img class="hero-logo" src="images/freefire-logo.png" alt="Free Fire logo">
+    <img class="hero-logo" src="freefire-logo.png" alt="Free Fire logo">
     <h1 class="display">SQUAD SHOWDOWN<br>SEASON 1</h1>
-    <p>4-player squads. Battle royale points across 4 matches. Mobile and emulator play in separate brackets.</p>
+    <p>4-player squads, mobile only. Battle royale points across 4 matches in Custom Room, third person view.</p>
     <div class="hero-cta">
       <a class="btn primary" href="#register">Register your squad</a>
       <a class="btn ghost" href="#rules">View rules</a>
@@ -49,7 +61,7 @@
     <p class="eyebrow-free reveal">TOURNAMENT INFO</p>
     <h2 class="section-title reveal">The numbers.</h2>
     <div class="stats reveal">
-      <div class="stat-card"><b>24</b><span>squad slots</span></div>
+      <div class="stat-card"><b>12</b><span>teams per lobby</span></div>
       <div class="stat-card"><b>4</b><span>matches, points format</span></div>
       <div class="stat-card"><b>Free</b><span>to enter</span></div>
     </div>
@@ -58,29 +70,105 @@
 
 <section id="rules">
   <div class="wrap">
-    <p class="eyebrow-free reveal">HOW IT'S SCORED</p>
+    <p class="eyebrow-free reveal">THE RULEBOOK</p>
     <h2 class="section-title reveal">Rules &amp; format.</h2>
-    <p class="section-sub reveal">Standings are decided across all 4 matches combined — placement points plus kill points.</p>
-    <div class="info-grid reveal">
+    <p class="section-sub reveal">Read these before you register. Standings come from placement points plus kills across all matches.</p>
+
+    <div class="rules-block reveal">
+      <h3>Format &amp; setup</h3>
+      <div class="info-grid">
       <div class="info-card">
         <div class="num">01</div>
         <h4>Squad size</h4>
-        <p>Exactly 4 players per squad. One substitute allowed, named at registration.</p>
+        <p>4 main players plus 1 optional substitute per team (max 5 registered players).</p>
       </div>
       <div class="info-card">
         <div class="num">02</div>
-        <h4>Scoring</h4>
-        <p>Placement points (1st–24th) plus 1 point per kill. Top combined score after 4 matches wins.</p>
+        <h4>Mobile only</h4>
+        <p>Played exclusively on mobile devices. Emulators, triggers and controllers are strictly prohibited.</p>
       </div>
       <div class="info-card">
         <div class="num">03</div>
-        <h4>Device split</h4>
-        <p>Mobile-only and emulator squads compete in separate brackets — declare your device at signup.</p>
+        <h4>Room setting</h4>
+        <p>Custom Room, Battle Royale mode, Third Person Perspective (TPP).</p>
       </div>
       <div class="info-card">
         <div class="num">04</div>
-        <h4>No-shows</h4>
-        <p>Squads must be ready 10 minutes before room code drop. Late squads forfeit that match's points.</p>
+        <h4>Map pool</h4>
+        <p>Bermuda, Purgatory, Kalahari, Alpine, Nexterra and Solara, rotated as per schedule.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">05</div>
+        <h4>Competitive settings</h4>
+        <p>External loadouts, gun skin stat attributes and character skill stacks are usually disabled or capped.</p>
+      </div>
+      </div>
+    </div>
+
+    <div class="rules-block reveal">
+      <h3>Scoring</h3>
+      <div class="points-wrap">
+        <table class="points-table">
+          <tr><th>Placement</th><th>Points</th></tr>
+          <tr><td>1st (Booyah!)</td><td>12</td></tr>
+          <tr><td>2nd</td><td>9</td></tr>
+          <tr><td>3rd</td><td>8</td></tr>
+          <tr><td>4th</td><td>7</td></tr>
+          <tr><td>5th</td><td>6</td></tr>
+          <tr><td>6th</td><td>5</td></tr>
+        </table>
+        <table class="points-table">
+          <tr><th>Placement</th><th>Points</th></tr>
+          <tr><td>7th</td><td>4</td></tr>
+          <tr><td>8th</td><td>3</td></tr>
+          <tr><td>9th</td><td>2</td></tr>
+          <tr><td>10th</td><td>1</td></tr>
+          <tr><td>11th</td><td>0</td></tr>
+          <tr><td>12th</td><td>0</td></tr>
+        </table>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="num">09</div>
+          <h4>Elimination points</h4>
+          <p>Each confirmed kill adds 1 point to your team's total match score.</p>
+        </div>
+        <div class="info-card">
+          <div class="num">10</div>
+          <h4>Tiebreakers</h4>
+          <p>Ties are broken by total Booyahs, then total placement points, then most recent match placement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-block reveal">
+      <h3>Conduct</h3>
+      <div class="info-grid">
+      <div class="info-card">
+        <div class="num">11</div>
+        <h4>Account lock</h4>
+        <p>Use your registered Player ID and In-Game Name (IGN). Account switching is banned.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">12</div>
+        <h4>Punctuality</h4>
+        <p>Join your allocated lobby slot within 10 to 15 minutes of the start time.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">13</div>
+        <h4>Disconnects</h4>
+        <p>Individual lag or disconnects will not restart a match. Rematches happen only for major server crashes.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">14</div>
+        <h4>Fair play</h4>
+        <p>Hacks, wallhacks, auto-aim or map exploits lead to immediate disqualification and a permanent ban.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">15</div>
+        <h4>No collusion</h4>
+        <p>Teaming up with opponents or sharing private lobby details with outsiders is strictly forbidden.</p>
+      </div>
       </div>
     </div>
   </div>
@@ -104,7 +192,7 @@
   </div>
 </footer>
 
-<script src="assets/script.js"></script>
+<script src="script.js"></script>
 <script>
   spawnParticles(document.getElementById('particles'), 28, ['#FF4D2E', '#FFB13C']);
 </script>
