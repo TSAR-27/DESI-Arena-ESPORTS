@@ -4,7 +4,371 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desi Arena E-Sportz — Tournament Central</title>
-<link rel="stylesheet" href="assets/style.css">
+<style>
+/* ============================================
+   ARENA HUB — shared stylesheet
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #0A0B10;
+  --bg-raised: #14151D;
+  --ink: #F4F2EA;
+  --ink-dim: #9195A6;
+  --line: #262836;
+
+  /* Free Fire palette */
+  --ff-a: #FF4D2E;
+  --ff-b: #FFB13C;
+
+  /* Minecraft palette */
+  --mc-a: #6FD13C;
+  --mc-b: #3C9CD1;
+
+  /* Hub accent */
+  --hub-a: #B36CFF;
+  --hub-b: #4DD8FF;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.display {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a { color: inherit; }
+
+/* ---------- Floating ember/particle background ---------- */
+.particles {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.particle {
+  position: absolute;
+  bottom: -40px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: 0.6; }
+  100% { transform: translateY(-110vh) translateX(var(--drift, 30px)) scale(0.4); opacity: 0; }
+}
+
+/* ---------- Nav ---------- */
+header.site {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(10,11,16,0.75);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+nav.site {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.logo {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.logo span {
+  background: linear-gradient(90deg, var(--hub-a), var(--hub-b));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.navlinks { display: flex; gap: 8px; }
+.navlinks a {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 100px;
+  color: var(--ink-dim);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.navlinks a:hover { color: var(--ink); background: var(--bg-raised); }
+.navlinks a.active { color: var(--ink); background: var(--bg-raised); }
+
+/* ---------- Reveal-on-scroll ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(.2,.7,.3,1), transform 0.7s cubic-bezier(.2,.7,.3,1);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 13px 26px;
+  border-radius: 100px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(.2,.8,.3,1.4), box-shadow 0.25s ease, filter 0.2s ease;
+  position: relative;
+}
+.btn:hover { transform: translateY(-3px) scale(1.03); filter: brightness(1.08); }
+.btn:active { transform: translateY(-1px) scale(0.99); }
+.btn.ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.btn.ghost:hover { border-color: var(--ink-dim); }
+
+/* ---------- Generic sections ---------- */
+section { position: relative; z-index: 1; padding: 64px 0; }
+.eyebrow-free {
+  font-size: 13px;
+  color: var(--ink-dim);
+  margin: 0 0 10px;
+}
+h2.section-title { font-size: clamp(26px, 4vw, 36px); margin: 0 0 12px; }
+p.section-sub { color: var(--ink-dim); max-width: 56ch; margin: 0 0 36px; }
+
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 28px 0 48px;
+  color: var(--ink-dim);
+  font-size: 13px;
+  position: relative;
+  z-index: 1;
+}
+footer.site .wrap {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ---------- Hub landing: game choice cards ---------- */
+.choice-hero { padding: 80px 0 40px; text-align: center; }
+.choice-hero h1 { font-size: clamp(38px, 8vw, 72px); margin: 0 0 16px; }
+.choice-hero p { color: var(--ink-dim); font-size: 18px; max-width: 46ch; margin: 0 auto; }
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px 0 80px;
+}
+@media (max-width: 720px) { .choice-grid { grid-template-columns: 1fr; } }
+
+.game-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 36px 28px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  isolation: isolate;
+  transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
+}
+.game-card:hover { transform: translateY(-8px); }
+.game-card .glow {
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  opacity: 0.55;
+  filter: blur(40px);
+  transition: opacity 0.4s ease, transform 0.6s ease;
+}
+.game-card:hover .glow { opacity: 0.85; transform: scale(1.1); }
+.game-card.ff .glow { background: radial-gradient(circle at 30% 30%, var(--ff-b), var(--ff-a) 60%, transparent 75%); }
+.game-card.mc .glow { background: radial-gradient(circle at 70% 30%, var(--mc-a), var(--mc-b) 60%, transparent 75%); }
+
+.game-card .icon { font-size: 44px; margin-bottom: 14px; }
+.game-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 30px; margin: 0 0 8px; }
+.game-card p { margin: 0 0 18px; color: rgba(244,242,234,0.85); font-size: 14px; }
+.game-card .tag {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: rgba(0,0,0,0.35);
+}
+
+/* ---------- Game page hero ---------- */
+.game-hero {
+  padding: 72px 0 56px;
+  text-align: center;
+  position: relative;
+}
+.game-hero .icon-big {
+  font-size: 64px;
+  margin-bottom: 18px;
+  animation: float 4s ease-in-out infinite;
+}
+.hero-logo {
+  max-width: 320px;
+  width: 70%;
+  height: auto;
+  margin: 0 auto 18px;
+  animation: float 4s ease-in-out infinite;
+}
+.card-logo {
+  max-width: 160px;
+  width: 60%;
+  height: auto;
+  margin-bottom: 14px;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+.game-hero h1 { font-size: clamp(36px, 7vw, 60px); margin: 0 0 14px; }
+.game-hero p { color: var(--ink-dim); font-size: 17px; max-width: 48ch; margin: 0 auto 30px; }
+.hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+body.ff .btn.primary { background: linear-gradient(90deg, var(--ff-a), var(--ff-b)); color: #1A0A00; box-shadow: 0 10px 30px -10px rgba(255,77,46,0.6); }
+body.mc .btn.primary { background: linear-gradient(90deg, var(--mc-a), var(--mc-b)); color: #06180C; box-shadow: 0 10px 30px -10px rgba(111,209,60,0.5); }
+body.hub .btn.primary { background: linear-gradient(90deg, var(--hub-a), var(--hub-b)); color: #0A0B10; box-shadow: 0 10px 30px -10px rgba(179,108,255,0.5); }
+
+/* ---------- Countdown ---------- */
+.countdown {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin: 10px 0 36px;
+  flex-wrap: wrap;
+}
+.countdown .unit {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 18px;
+  min-width: 74px;
+  text-align: center;
+}
+.countdown .unit b { display: block; font-family: 'Archivo Black', sans-serif; font-size: 26px; }
+.countdown .unit span { font-size: 11px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+body.ff .countdown .unit b { color: var(--ff-b); }
+body.mc .countdown .unit b { color: var(--mc-a); }
+
+/* ---------- Stat strip ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 640px) { .stats { grid-template-columns: 1fr; } }
+.stat-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+.stat-card b { display: block; font-family: 'Archivo Black', sans-serif; font-size: 28px; margin-bottom: 4px; }
+body.ff .stat-card b { color: var(--ff-b); }
+body.mc .stat-card b { color: var(--mc-a); }
+.stat-card span { color: var(--ink-dim); font-size: 13px; }
+
+/* ---------- Rules / info cards ---------- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+@media (max-width: 640px) { .info-grid { grid-template-columns: 1fr; } }
+.info-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.info-card:hover { transform: translateY(-4px); }
+body.ff .info-card:hover { border-color: var(--ff-a); }
+body.mc .info-card:hover { border-color: var(--mc-a); }
+.info-card .num { font-size: 12px; color: var(--ink-dim); margin-bottom: 8px; }
+.info-card h4 { margin: 0 0 8px; font-size: 17px; }
+.info-card p { margin: 0; color: var(--ink-dim); font-size: 14px; }
+
+/* ---------- Register panel ---------- */
+.register-panel {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+}
+.register-panel h2 { margin: 0 0 10px; }
+.register-panel p { color: var(--ink-dim); margin: 0 0 26px; }
+
+
+  .points-table { width:100%; border-collapse:collapse; background:var(--bg-raised); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  .points-table th, .points-table td { padding:12px 16px; text-align:left; font-size:14px; border-bottom:1px solid var(--line); }
+  .points-table th { color:var(--ink-dim); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.04em; }
+  .points-table td:last-child { font-family:'Archivo Black',sans-serif; color:var(--ff-b); text-align:right; }
+  .points-table th:last-child { text-align:right; }
+  .points-table tr:last-child td { border-bottom:none; }
+  .points-wrap { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+  @media (max-width:640px){ .points-wrap{ grid-template-columns:1fr; } }
+  .rules-block { margin-bottom:48px; }
+  .rules-block h3 { font-family:'Archivo Black',sans-serif; font-size:20px; margin:0 0 18px; }
+
+.view{display:none}
+@media (max-width:600px){
+  nav.site{flex-direction:column;gap:10px;padding:12px 16px}
+  .logo{font-size:15px}
+  .navlinks{flex-wrap:wrap;justify-content:center}
+  .navlinks a{padding:7px 12px;font-size:13px}
+  .wrap{padding:0 16px}
+  section{padding:48px 0}
+  .register-panel{padding:28px 20px}
+  .countdown .unit{min-width:64px;padding:12px 12px}
+}
+.view.active{display:block}
+.hero-logo,.card-logo{display:block}
+.hero-logo{margin-left:auto;margin-right:auto}
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}.view{display:block}</style></noscript>
 </head>
 <body class="hub">
 
@@ -14,12 +378,15 @@
   <nav class="site">
     <div class="logo">DESI ARENA <span>E-SPORTZ</span></div>
     <div class="navlinks">
-      <a href="index.html">Home</a>
-      <a href="freefire.html">Free Fire</a>
-      <a href="minecraft.html">Minecraft</a>
+      <a href="#home">Home</a>
+      <a href="#freefire">Free Fire</a>
+      <a href="#minecraft">Minecraft</a>
     </div>
   </nav>
 </header>
+
+<main>
+<div class="view active" id="view-home">
 
 <section class="choice-hero">
   <div class="wrap reveal">
@@ -32,17 +399,17 @@
   <div class="wrap">
     <div class="choice-grid">
 
-      <a class="game-card ff reveal" href="freefire.html">
+      <a class="game-card ff reveal" href="#freefire">
         <div class="glow"></div>
-        <img class="card-logo" src="images/freefire-logo.png" alt="Free Fire logo">
+        <img class="card-logo" src="freefire-logo.png" alt="Free Fire logo">
         <span class="tag">SQUAD · BATTLE ROYALE</span>
         <h3 class="display">FREE FIRE</h3>
         <p>Squad Showdown Season 1 — points-based battle royale across 4 matches.</p>
       </a>
 
-      <a class="game-card mc reveal" href="minecraft.html">
+      <a class="game-card mc reveal" href="#minecraft">
         <div class="glow"></div>
-        <img class="card-logo" src="images/minecraft-logo.png" alt="Minecraft logo">
+        <img class="card-logo" src="minecraft-logo.png" alt="Minecraft logo">
         <span class="tag">SOLO/DUO · BED WARS</span>
         <h3 class="display">MINECRAFT</h3>
         <p>Bed Wars Open — single elimination bracket, beginners welcome.</p>
@@ -54,7 +421,7 @@
 
 <section>
   <div class="wrap">
-    <p class="eyebrow-free reveal">WHY ARENA HUB</p>
+    <p class="eyebrow-free reveal">WHY DESI ARENA</p>
     <h2 class="section-title reveal">Built for players, not spreadsheets.</h2>
     <div class="stats reveal">
       <div class="stat-card"><b>Free</b><span>entry, always</span></div>
@@ -64,6 +431,243 @@
   </div>
 </section>
 
+</div>
+<div class="view" id="view-freefire">
+
+<section class="game-hero">
+  <div class="wrap reveal">
+    <img class="hero-logo" src="freefire-logo.png" alt="Free Fire logo">
+    <h1 class="display">SQUAD SHOWDOWN<br>SEASON 1</h1>
+    <p>4-player squads, mobile only. Battle royale points across 4 matches in Custom Room, third person view.</p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#" data-scroll="ff-register">Register your squad</a>
+      <a class="btn ghost" href="#" data-scroll="ff-rules">View rules</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div id="ff-countdown" class="countdown reveal" data-target="2026-11-15T18:00:00">
+      <div class="unit"><b data-d>00</b><span>Days</span></div>
+      <div class="unit"><b data-h>00</b><span>Hours</span></div>
+      <div class="unit"><b data-m>00</b><span>Mins</span></div>
+      <div class="unit"><b data-s>00</b><span>Secs</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow-free reveal">TOURNAMENT INFO</p>
+    <h2 class="section-title reveal">The numbers.</h2>
+    <div class="stats reveal">
+      <div class="stat-card"><b>12</b><span>teams per lobby</span></div>
+      <div class="stat-card"><b>4</b><span>matches, points format</span></div>
+      <div class="stat-card"><b>Free</b><span>to enter</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="ff-rules">
+  <div class="wrap">
+    <p class="eyebrow-free reveal">THE RULEBOOK</p>
+    <h2 class="section-title reveal">Rules &amp; format.</h2>
+    <p class="section-sub reveal">Read these before you register. Standings come from placement points plus kills across all matches.</p>
+
+    <div class="rules-block reveal">
+      <h3>Format &amp; setup</h3>
+      <div class="info-grid">
+      <div class="info-card">
+        <div class="num">01</div>
+        <h4>Squad size</h4>
+        <p>4 main players plus 1 optional substitute per team (max 5 registered players).</p>
+      </div>
+      <div class="info-card">
+        <div class="num">02</div>
+        <h4>Mobile only</h4>
+        <p>Played exclusively on mobile devices. Emulators, triggers and controllers are strictly prohibited.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">03</div>
+        <h4>Room setting</h4>
+        <p>Custom Room, Battle Royale mode, Third Person Perspective (TPP).</p>
+      </div>
+      <div class="info-card">
+        <div class="num">04</div>
+        <h4>Map pool</h4>
+        <p>Bermuda, Purgatory, Kalahari, Alpine, Nexterra and Solara, rotated as per schedule.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">05</div>
+        <h4>Competitive settings</h4>
+        <p>External loadouts, gun skin stat attributes and character skill stacks are usually disabled or capped.</p>
+      </div>
+      </div>
+    </div>
+
+    <div class="rules-block reveal">
+      <h3>Scoring</h3>
+      <div class="points-wrap">
+        <table class="points-table">
+          <tr><th>Placement</th><th>Points</th></tr>
+          <tr><td>1st (Booyah!)</td><td>12</td></tr>
+          <tr><td>2nd</td><td>9</td></tr>
+          <tr><td>3rd</td><td>8</td></tr>
+          <tr><td>4th</td><td>7</td></tr>
+          <tr><td>5th</td><td>6</td></tr>
+          <tr><td>6th</td><td>5</td></tr>
+        </table>
+        <table class="points-table">
+          <tr><th>Placement</th><th>Points</th></tr>
+          <tr><td>7th</td><td>4</td></tr>
+          <tr><td>8th</td><td>3</td></tr>
+          <tr><td>9th</td><td>2</td></tr>
+          <tr><td>10th</td><td>1</td></tr>
+          <tr><td>11th</td><td>0</td></tr>
+          <tr><td>12th</td><td>0</td></tr>
+        </table>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="num">09</div>
+          <h4>Elimination points</h4>
+          <p>Each confirmed kill adds 1 point to your team's total match score.</p>
+        </div>
+        <div class="info-card">
+          <div class="num">10</div>
+          <h4>Tiebreakers</h4>
+          <p>Ties are broken by total Booyahs, then total placement points, then most recent match placement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-block reveal">
+      <h3>Conduct</h3>
+      <div class="info-grid">
+      <div class="info-card">
+        <div class="num">11</div>
+        <h4>Account lock</h4>
+        <p>Use your registered Player ID and In-Game Name (IGN). Account switching is banned.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">12</div>
+        <h4>Punctuality</h4>
+        <p>Join your allocated lobby slot within 10 to 15 minutes of the start time.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">13</div>
+        <h4>Disconnects</h4>
+        <p>Individual lag or disconnects will not restart a match. Rematches happen only for major server crashes.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">14</div>
+        <h4>Fair play</h4>
+        <p>Hacks, wallhacks, auto-aim or map exploits lead to immediate disqualification and a permanent ban.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">15</div>
+        <h4>No collusion</h4>
+        <p>Teaming up with opponents or sharing private lobby details with outsiders is strictly forbidden.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ff-register">
+  <div class="wrap">
+    <div class="register-panel reveal">
+      <h2 class="display">Ready to squad up?</h2>
+      <p>Registration takes under 2 minutes. You'll get a confirmation email with your bracket slot.</p>
+      <!-- Replace the href below with your Google Form link -->
+      <a class="btn primary" href="#" id="ff-register-link">Register your squad</a>
+    </div>
+  </div>
+</section>
+
+</div>
+<div class="view" id="view-minecraft">
+
+<section class="game-hero">
+  <div class="wrap reveal">
+    <img class="hero-logo" src="minecraft-logo.png" alt="Minecraft logo">
+    <h1 class="display">BED WARS OPEN</h1>
+    <p>Solo or duo, single elimination bracket. Casual and competitive players both welcome — beginners get a practice round.</p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#" data-scroll="mc-register">Register to play</a>
+      <a class="btn ghost" href="#" data-scroll="mc-rules">View rules</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div id="mc-countdown" class="countdown reveal" data-target="2026-11-22T17:00:00">
+      <div class="unit"><b data-d>00</b><span>Days</span></div>
+      <div class="unit"><b data-h>00</b><span>Hours</span></div>
+      <div class="unit"><b data-m>00</b><span>Mins</span></div>
+      <div class="unit"><b data-s>00</b><span>Secs</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow-free reveal">TOURNAMENT INFO</p>
+    <h2 class="section-title reveal">The numbers.</h2>
+    <div class="stats reveal">
+      <div class="stat-card"><b>32</b><span>player slots</span></div>
+      <div class="stat-card"><b>1v1 / 2v2</b><span>solo or duo entry</span></div>
+      <div class="stat-card"><b>Free</b><span>to enter</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="mc-rules">
+  <div class="wrap">
+    <p class="eyebrow-free reveal">BRACKET FORMAT</p>
+    <h2 class="section-title reveal">Rules &amp; format.</h2>
+    <p class="section-sub reveal">Single elimination — lose a match and you're out, so every bed matters.</p>
+    <div class="info-grid reveal">
+      <div class="info-card">
+        <div class="num">01</div>
+        <h4>Entry type</h4>
+        <p>Register solo or as a duo. Solo and duo brackets run separately.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">02</div>
+        <h4>Match format</h4>
+        <p>Best of 1 until the semifinals, best of 3 for semis and final.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">03</div>
+        <h4>New players</h4>
+        <p>First-timers get a short practice round before the bracket starts — no shame in asking.</p>
+      </div>
+      <div class="info-card">
+        <div class="num">04</div>
+        <h4>Disputes</h4>
+        <p>Report issues in the match-day Discord within 10 minutes of a match ending.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mc-register">
+  <div class="wrap">
+    <div class="register-panel reveal">
+      <h2 class="display">Ready to break some beds?</h2>
+      <p>Registration takes under 2 minutes. You'll get a confirmation email with your bracket slot.</p>
+      <!-- Replace the href below with your Google Form link -->
+      <a class="btn primary" href="#" id="mc-register-link">Register to play</a>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
 <footer class="site">
   <div class="wrap">
     <span>Desi Arena E-Sportz — organized by players, for players.</span>
@@ -71,9 +675,69 @@
   </div>
 </footer>
 
-<script src="assets/script.js"></script>
 <script>
-  spawnParticles(document.getElementById('particles'), 26, ['#B36CFF', '#4DD8FF', '#FF4D2E']);
+
+function spawnParticles(container, count, colors){
+  container.innerHTML='';
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=3+Math.random()*6;
+    p.style.width=size+'px';p.style.height=size+'px';
+    p.style.left=Math.random()*100+'%';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.setProperty('--drift',(Math.random()*80-40)+'px');
+    const d=9+Math.random()*10;
+    p.style.animationDuration=d+'s';p.style.animationDelay=(Math.random()*d)+'s';
+    container.appendChild(p);
+  }
+}
+const THEMES={
+  home:{cls:'hub',colors:['#B36CFF','#4DD8FF','#FF4D2E'],title:'Desi Arena E-Sportz \u2014 Tournament Central'},
+  freefire:{cls:'ff',colors:['#FF4D2E','#FFB13C'],title:'Free Fire Tournament \u2014 Desi Arena E-Sportz'},
+  minecraft:{cls:'mc',colors:['#6FD13C','#3C9CD1'],title:'Minecraft Tournament \u2014 Desi Arena E-Sportz'}
+};
+function showView(){
+  let v=(location.hash||'#home').replace('#','');
+  if(!THEMES[v]) v='home';
+  document.querySelectorAll('.view').forEach(el=>el.classList.toggle('active',el.id==='view-'+v));
+  document.querySelectorAll('.navlinks a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+v));
+  document.body.className=THEMES[v].cls;
+  document.title=THEMES[v].title;
+  spawnParticles(document.getElementById('particles'),26,THEMES[v].colors);
+  window.scrollTo(0,0);
+  setTimeout(()=>document.querySelectorAll('#view-'+v+' .reveal').forEach(el=>el.classList.add('in')),1200);
+}
+function initReveal(){
+  const items=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){items.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:0.15});
+  items.forEach(e=>io.observe(e));
+}
+function initCountdowns(){
+  const els=document.querySelectorAll('.countdown[data-target]');
+  function tick(){
+    els.forEach(el=>{
+      const diff=Math.max(0,new Date(el.dataset.target).getTime()-Date.now());
+      const set=(k,v)=>{const n=el.querySelector('['+k+']');if(n)n.textContent=String(v).padStart(2,'0');};
+      set('data-d',Math.floor(diff/86400000));
+      set('data-h',Math.floor(diff%86400000/3600000));
+      set('data-m',Math.floor(diff%3600000/60000));
+      set('data-s',Math.floor(diff%60000/1000));
+    });
+  }
+  tick();setInterval(tick,1000);
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('[data-scroll]');
+  if(!a)return;
+  e.preventDefault();
+  const t=document.getElementById(a.dataset.scroll);
+  if(t)t.scrollIntoView({behavior:'smooth'});
+});
+window.addEventListener('hashchange',showView);
+document.addEventListener('DOMContentLoaded',()=>{initReveal();initCountdowns();showView();});
+
 </script>
 </body>
 </html>
